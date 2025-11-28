@@ -7,6 +7,8 @@ import {
   View,
 } from "react-native";
 
+import * as Haptics from "expo-haptics";
+
 interface TecladoProps {
   onGuess: (letra: string) => void;
   guessedLetters: string[];
@@ -14,6 +16,13 @@ interface TecladoProps {
 
 export default function Teclado({ onGuess, guessedLetters }: TecladoProps) {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+  const handlePress = (letter: string) => {
+    if (Platform.OS !== "web") {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+    onGuess(letter);
+  };
 
   return (
     <View style={styles.tecladoContainer}>
@@ -24,7 +33,7 @@ export default function Teclado({ onGuess, guessedLetters }: TecladoProps) {
           <TouchableOpacity
             key={letter}
             style={[styles.tecla, isSelected && styles.teclaDisabled]}
-            onPress={() => onGuess(letter)}
+            onPress={() => handlePress(letter)}
             disabled={isSelected}
             activeOpacity={0.7}
           >
@@ -55,11 +64,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
-
     backgroundColor: "#1F1F1F",
     borderWidth: 1,
     borderColor: "#333333",
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
@@ -72,7 +79,6 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
   },
-
   teclaDisabled: {
     backgroundColor: "#0a0a0a",
     borderColor: "#1a1a1a",

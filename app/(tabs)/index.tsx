@@ -41,7 +41,7 @@ export default function HomePage() {
 
         <Text style={styles.sectionTitle}>Menu Principal</Text>
 
-        {/* GRADE DE CARDS (Todos iguais) */}
+        {/* GRADE DE CARDS  */}
         <View style={styles.grid}>
           {/* 1. Sobre Mim */}
           <Link href="/sobremim" asChild>
@@ -82,7 +82,7 @@ export default function HomePage() {
             </TouchableOpacity>
           </Link>
 
-          {/* 4. Jogo da Forca (Novo Card Padrão) */}
+          {/* 4. Jogo da Forca  */}
           <Link href="/forca" asChild>
             <TouchableOpacity style={styles.card}>
               <Gamepad2
