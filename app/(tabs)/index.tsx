@@ -17,6 +17,7 @@ import {
   Gamepad2,
   Code2,
 } from "lucide-react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const COLORS = {
   background: "#0a0a0a",
@@ -32,16 +33,20 @@ export default function HomePage() {
       <StatusBar barStyle="light-content" backgroundColor={COLORS.background} />
 
       <ScrollView contentContainerStyle={styles.content}>
-        {/* CABEÇALHO */}
-        <View style={styles.header}>
-          <Text style={styles.greeting}>Olá, eu sou</Text>
-          <Text style={styles.name}>Henri Moraes</Text>
-          <Text style={styles.role}>Este é meu portfólio</Text>
-        </View>
+        <LinearGradient
+          colors={["rgba(0, 122, 255, 0.15)", "transparent"]}
+          style={styles.headerGradient}
+        >
+          <View>
+            <Text style={styles.greeting}>Olá, eu sou</Text>
+            <Text style={styles.name}>Henri Moraes</Text>
+            <Text style={styles.role}>Este é meu portfólio</Text>
+          </View>
+        </LinearGradient>
 
         <Text style={styles.sectionTitle}>Menu Principal</Text>
 
-        {/* GRADE DE CARDS  */}
+        {/* GRADE DE CARDS */}
         <View style={styles.grid}>
           {/* 1. Sobre Mim */}
           <Link href="/sobremim" asChild>
@@ -82,7 +87,7 @@ export default function HomePage() {
             </TouchableOpacity>
           </Link>
 
-          {/* 4. Jogo da Forca  */}
+          {/* 4. Jogo da Forca */}
           <Link href="/forca" asChild>
             <TouchableOpacity style={styles.card}>
               <Gamepad2
@@ -119,10 +124,22 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
-  content: { padding: 24, paddingBottom: 40 },
+  content: {
+    padding: 24,
+    paddingBottom: 40,
+  },
 
-  // Header
-  header: { marginBottom: 32, marginTop: 10 },
+  headerGradient: {
+    marginHorizontal: -24,
+    marginTop: -24,
+    paddingHorizontal: 24,
+    paddingTop: 40,
+    paddingBottom: 40,
+    marginBottom: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.05)",
+  },
+
   greeting: { fontSize: 16, color: COLORS.foreground, opacity: 0.7 },
   name: {
     fontSize: 32,
@@ -142,8 +159,8 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 12, 
-    justifyContent: "space-between", 
+    gap: 12,
+    justifyContent: "space-between",
   },
 
   card: {
@@ -153,9 +170,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
-    minHeight: 130, 
+    minHeight: 130,
     justifyContent: "center",
-    marginBottom: 4, 
+    marginBottom: 4,
   },
   cardIcon: { marginBottom: 16 },
   cardTitle: {

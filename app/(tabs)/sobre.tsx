@@ -41,7 +41,6 @@ const TECH_STACK = [
       "React Native Confetti Cannon",
       "Expo Linking",
       "Expo Haptics",
-      "AsyncStorage",
     ],
   },
 ];
