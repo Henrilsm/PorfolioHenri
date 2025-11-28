@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 interface TecladoProps {
   onGuess: (letra: string) => void;
@@ -7,13 +13,12 @@ interface TecladoProps {
 }
 
 export default function Teclado({ onGuess, guessedLetters }: TecladoProps) {
-  const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   return (
-    <View style={styles.teclado}>
+    <View style={styles.tecladoContainer}>
       {letters.map((letter) => {
-        const letraMaiuscula = letter.toUpperCase();
-        const isSelected = guessedLetters.includes(letraMaiuscula);
+        const isSelected = guessedLetters.includes(letter);
 
         return (
           <TouchableOpacity
@@ -21,8 +26,13 @@ export default function Teclado({ onGuess, guessedLetters }: TecladoProps) {
             style={[styles.tecla, isSelected && styles.teclaDisabled]}
             onPress={() => onGuess(letter)}
             disabled={isSelected}
+            activeOpacity={0.7}
           >
-            <Text style={styles.teclaText}>{letraMaiuscula}</Text>
+            <Text
+              style={[styles.teclaText, isSelected && styles.teclaTextDisabled]}
+            >
+              {letter}
+            </Text>
           </TouchableOpacity>
         );
       })}
@@ -31,29 +41,44 @@ export default function Teclado({ onGuess, guessedLetters }: TecladoProps) {
 }
 
 const styles = StyleSheet.create({
-  teclado: {
+  tecladoContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 8,
     justifyContent: "center",
-    maxWidth: 600,
+    maxWidth: "100%",
+    paddingHorizontal: 10,
   },
   tecla: {
     width: 40,
-    height: 40,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.08)",
-    backgroundColor: "rgba(0,0,0,0.05)",
+    height: 48,
     justifyContent: "center",
     alignItems: "center",
-  },
-  teclaDisabled: {
-    opacity: 0.4,
+    borderRadius: 8,
+
+    backgroundColor: "#1F1F1F",
+    borderWidth: 1,
+    borderColor: "#333333",
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 4,
   },
   teclaText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
-    color: "#171717",
+    color: "#FFFFFF",
+    fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
+  },
+
+  teclaDisabled: {
+    backgroundColor: "#0a0a0a",
+    borderColor: "#1a1a1a",
+    elevation: 0,
+  },
+  teclaTextDisabled: {
+    color: "#333333",
   },
 });

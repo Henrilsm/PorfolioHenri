@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   StatusBar,
+  Platform,
 } from "react-native";
 import { Svg, Line, Circle } from "react-native-svg";
 import ConfettiCannon from "react-native-confetti-cannon";
@@ -15,10 +16,13 @@ import Teclado from "../../components/Teclado";
 const MAX_ERROS = 6;
 const COLORS = {
   background: "#0a0a0a",
-  foreground: "#ededed", 
+  foreground: "#ededed",
   accent: "#007AFF",
   muted: "rgba(237, 237, 237, 0.6)",
   cardBg: "rgba(255, 255, 255, 0.06)",
+  success: "#4ADE80", 
+  error: "#EF4444", 
+  white: "#FFFFFF", 
 };
 
 const BonecoForca = ({ erros }: { erros: number }) => {
@@ -132,18 +136,9 @@ export default function ForcaTab() {
       setVenceu(true);
     } else if (letrasErradas.length >= MAX_ERROS) {
       setJogoFinalizado(true);
-      setMensagem(`Game Over! Era: ${palavra}`);
+      setMensagem(`Game Over! A palavra era:`);
     }
   }, [letrasAdivinhadas, letrasErradas, palavra]);
-
-  const palavraExibida = useMemo(
-    () =>
-      palavra
-        .split("")
-        .map((l) => (letrasAdivinhadas.includes(l) ? l : "_"))
-        .join("  "),
-    [palavra, letrasAdivinhadas]
-  );
 
   return (
     <View style={styles.container}>
@@ -166,7 +161,28 @@ export default function ForcaTab() {
 
       <View style={styles.gameArea}>
         <BonecoForca erros={letrasErradas.length} />
-        <Text style={styles.palavra}>{palavraExibida}</Text>
+        
+        <View style={styles.palavraContainer}>
+          {palavra.split("").map((letra, index) => {
+            const descoberta =
+              letrasAdivinhadas.includes(letra) || jogoFinalizado;
+            const errouEssa =
+              jogoFinalizado && !letrasAdivinhadas.includes(letra);
+
+            return (
+              <View key={index} style={styles.letraBox}>
+                <Text
+                  style={[
+                    styles.letraTexto,
+                    errouEssa && { color: COLORS.error, opacity: 0.8 }, // Mostra o que errou em vermelho
+                  ]}
+                >
+                  {descoberta ? letra : ""}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
       </View>
 
       {jogoFinalizado ? (
@@ -174,11 +190,13 @@ export default function ForcaTab() {
           <Text
             style={[
               styles.resultText,
-              { color: venceu ? "#4ADE80" : "#EF4444" },
+              { color: venceu ? COLORS.success : COLORS.error },
             ]}
           >
             {mensagem}
           </Text>
+          {!venceu && <Text style={styles.palavraRevelada}>{palavra}</Text>}
+
           <TouchableOpacity
             onPress={iniciarNovoJogo}
             style={styles.restartButton}
@@ -210,17 +228,36 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 20,
   },
-  header: { alignItems: "center", marginBottom: 20 },
+  header: { alignItems: "center", marginBottom: 10 },
   title: { fontSize: 28, fontWeight: "bold", color: COLORS.foreground },
   subtitle: { fontSize: 14, color: COLORS.muted },
 
-  gameArea: { alignItems: "center", marginBottom: 20 },
-  palavra: {
-    fontSize: 24,
+  gameArea: { alignItems: "center", marginBottom: 20, width: "100%" },
+
+  palavraContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 8,
+    marginTop: 30,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  letraBox: {
+    width: 40,
+    height: 50,
+    borderBottomWidth: 3,
+    borderColor: COLORS.foreground,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.03)",
+    borderRadius: 4,
+  },
+  letraTexto: {
+    fontSize: 32,
     fontWeight: "bold",
-    color: COLORS.foreground,
-    marginTop: 20,
-    letterSpacing: 2,
+    color: COLORS.white,
+    fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
   },
 
   resultContainer: {
@@ -230,7 +267,19 @@ const styles = StyleSheet.create({
     minHeight: 120,
     justifyContent: "center",
   },
-  resultText: { fontSize: 22, fontWeight: "bold", marginBottom: 16 },
+  resultText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  palavraRevelada: {
+    fontSize: 20,
+    color: COLORS.foreground,
+    marginBottom: 16,
+    fontWeight: "bold",
+  },
+
   restartButton: {
     backgroundColor: COLORS.foreground,
     paddingVertical: 12,
