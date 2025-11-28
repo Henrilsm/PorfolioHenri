@@ -35,7 +35,7 @@ export default function HomePage() {
         {/* CABEÇALHO */}
         <View style={styles.header}>
           <Text style={styles.greeting}>Olá, eu sou</Text>
-          <Text style={styles.name}>Henri Leonardo</Text>
+          <Text style={styles.name}>Henri Moraes</Text>
           <Text style={styles.role}>Este é meu portifólio</Text>
         </View>
 

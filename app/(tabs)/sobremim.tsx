@@ -16,10 +16,11 @@ const COLORS = {
   muted: "rgba(237, 237, 237, 0.6)",
 };
 
-// Lista de skills extraída do seu portfólio
 const TECH_SKILLS = [
   "JavaScript",
   "React",
+  "React Native",
+  "Expo",
   "Next.js",
   "TypeScript",
   "Node.js",
@@ -42,7 +43,7 @@ export default function SobrePage() {
         {/* TEXTO DE APRESENTAÇÃO */}
         <View style={styles.section}>
           <Text style={styles.paragraph}>
-            Sou um desenvolvedor de software backend com foco na construção de
+            Olá, meu nome é Henri Moraes, um desenvolvedor de software backend com foco na construção de
             sistemas robustos e escaláveis. Tenho experiência com o ecossistema
             Node.js, Python e Java, incluindo tecnologias como Express e bancos
             de dados como SQL.
