@@ -1,20 +1,19 @@
-import { Tabs } from "expo-router";
-import {
-  FolderGit2,
-  Gamepad2,
-  GraduationCap,
-  Home,
-  Info,
-  User,
-} from "lucide-react-native";
 import React from "react";
+import { Tabs } from "expo-router";
 import { Platform } from "react-native";
+import {
+  Home,
+  User,
+  GraduationCap,
+  FolderGit2,
+  Info,
+  Gamepad2,
+} from "lucide-react-native";
 
 const COLORS = {
-  background: "#0a0a0a",
-  active: "#ededed",
-  inactive: "#666666",
   tabBarBg: "#121212",
+  active: "#ededed",
+  inactive: "#666666", 
 };
 
 export default function TabLayout() {
@@ -22,18 +21,27 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+
         tabBarStyle: {
           backgroundColor: COLORS.tabBarBg,
           borderTopColor: "#333",
-          height: Platform.OS === "ios" ? 88 : 80,
-          paddingBottom: Platform.OS === "ios" ? 28 : 20,
+          borderTopWidth: 1,
+          elevation: 0,
+
+          height: Platform.OS === "ios" ? 88 : 96,
+
+          paddingBottom: Platform.OS === "ios" ? 28 : 36,
+
           paddingTop: 8,
         },
+
         tabBarActiveTintColor: COLORS.active,
         tabBarInactiveTintColor: COLORS.inactive,
+
         tabBarLabelStyle: {
           fontSize: 10,
           fontWeight: "500",
+          marginTop: 2,
         },
       }}
     >
@@ -42,16 +50,16 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Início",
-          tabBarIcon: ({ color }) => <Home size={22} color={color} />,
+          tabBarIcon: ({ color }) => <Home size={24} color={color} />,
         }}
       />
 
-      {/* 2. PERFIL (sobremim.tsx) */}
+      {/* 2. PERFIL */}
       <Tabs.Screen
         name="sobremim"
         options={{
           title: "Perfil",
-          tabBarIcon: ({ color }) => <User size={22} color={color} />,
+          tabBarIcon: ({ color }) => <User size={24} color={color} />,
         }}
       />
 
@@ -60,7 +68,7 @@ export default function TabLayout() {
         name="experiencia"
         options={{
           title: "Formação",
-          tabBarIcon: ({ color }) => <GraduationCap size={22} color={color} />,
+          tabBarIcon: ({ color }) => <GraduationCap size={24} color={color} />,
         }}
       />
 
@@ -69,25 +77,25 @@ export default function TabLayout() {
         name="projetos"
         options={{
           title: "Projetos",
-          tabBarIcon: ({ color }) => <FolderGit2 size={22} color={color} />,
+          tabBarIcon: ({ color }) => <FolderGit2 size={24} color={color} />,
         }}
       />
 
-      {/* 5. JOGO DA FORCA */}
+      {/* 5. JOGO */}
       <Tabs.Screen
         name="forca"
         options={{
           title: "Jogar",
-          tabBarIcon: ({ color }) => <Gamepad2 size={22} color={color} />,
+          tabBarIcon: ({ color }) => <Gamepad2 size={24} color={color} />,
         }}
       />
 
-      {/* 6. APP INFO */}
+      {/* 6. INFO */}
       <Tabs.Screen
         name="sobre"
         options={{
-          title: "App Info",
-          tabBarIcon: ({ color }) => <Info size={22} color={color} />,
+          title: "Info",
+          tabBarIcon: ({ color }) => <Info size={24} color={color} />,
         }}
       />
     </Tabs>
