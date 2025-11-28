@@ -36,7 +36,7 @@ export default function HomePage() {
         <View style={styles.header}>
           <Text style={styles.greeting}>Olá, eu sou</Text>
           <Text style={styles.name}>Henri Moraes</Text>
-          <Text style={styles.role}>Este é meu portifólio</Text>
+          <Text style={styles.role}>Este é meu portfólio</Text>
         </View>
 
         <Text style={styles.sectionTitle}>Menu Principal</Text>
