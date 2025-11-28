@@ -1,98 +1,268 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import React from 'react';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  ScrollView, 
+  TouchableOpacity, 
+  Linking, 
+  SafeAreaView,
+  Platform,
+  StatusBar
+} from 'react-native';
 import { Link } from 'expo-router';
+import { Github, Mail, ArrowRight } from 'lucide-react-native';
 
-export default function HomeScreen() {
+// Cores extraídas do seu globals.css e Home.module.css
+const COLORS = {
+  background: '#ffffff',
+  foreground: '#171717',
+  grayAlpha200: 'rgba(0, 0, 0, 0.08)',
+  grayAlpha100: 'rgba(0, 0, 0, 0.05)',
+  linkBlue: '#007AFF', // Cor padrão de link mobile
+};
+
+export default function HomePage() {
+  // Função para abrir links externos
+  const handleOpenLink = (url : string) => {
+    Linking.openURL(url);
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        
+        {/* HEADER */}
+        <View style={styles.header}>
+          <Text style={styles.h1}>Henri Leonardo</Text>
+          <Text style={styles.subtitle}>
+            Desenvolvedor Back-end | Apaixonado por tecnologia e inovação
+          </Text>
+          
+          <View style={styles.socialLinks}>
+            <TouchableOpacity 
+              style={styles.socialButton} 
+              onPress={() => handleOpenLink('https://github.com/Henrilsm')}
+            >
+              <Github size={20} color={COLORS.foreground} />
+              <Text style={styles.socialText}>GitHub</Text>
+            </TouchableOpacity>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+            <TouchableOpacity 
+              style={styles.socialButton} 
+              onPress={() => handleOpenLink('mailto:henrilsm@gmail.com')}
+            >
+              <Mail size={20} color={COLORS.foreground} />
+              <Text style={styles.socialText}>Email</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* SOBRE MIM */}
+        <View style={styles.section}>
+          <Text style={styles.h2}>Sobre Mim</Text>
+          <Text style={styles.paragraph}>
+            Sou um desenvolvedor de software backend com foco na construção de
+            sistemas robustos e escaláveis. Tenho experiência com o ecossistema
+            Node.js, Python e Java, incluindo tecnologias como Express e bancos
+            de dados como SQL. Atualmente, estou buscando novas oportunidades
+            para aplicar minhas habilidades e contribuir para projetos
+            inovadores.
+          </Text>
+        </View>
+
+        {/* EDUCAÇÃO */}
+        <View style={styles.section}>
+          <Text style={styles.h2}>Educação</Text>
+          <View style={styles.job}>
+            <Text style={styles.h3}>Ciência da Computação</Text>
+            <Text style={styles.jobInfo}>
+              Universidade Católica de Pernambuco (UNICAP) | Cursando atualmente no 5º semestre.
+            </Text>
+          </View>
+        </View>
+
+        {/* PROJETOS */}
+        <View style={styles.section}>
+          <Text style={styles.h2}>Projetos</Text>
+          <View style={styles.projectGrid}>
+            
+            {/* Card 1 - Jogo da Forca (Link Interno) */}
+            <View style={styles.projectCard}>
+              <Text style={styles.h3}>Jogo da Forca</Text>
+              <Text style={styles.paragraph}>
+                Clássico jogo da forca implementado originalmente em Next.js e agora portado para Mobile.
+              </Text>
+              {/* O Link do Expo Router funciona igual ao do Next */}
+              <Link href="/forca" asChild>
+                <TouchableOpacity style={styles.projectLink}>
+                  <Text style={styles.linkText}>Ver Projeto</Text>
+                  <ArrowRight size={16} color={COLORS.foreground} />
+                </TouchableOpacity>
+              </Link>
+            </View>
+
+            {/* Card 2 - Escalação FC (Link Externo) */}
+            <View style={styles.projectCard}>
+              <Text style={styles.h3}>Escalação FC</Text>
+              <Text style={styles.paragraph}>
+                Site web desenvolvido para que fãs de futebol possam dar uma de
+                treinador e esboçar uma escalação.
+              </Text>
+              <TouchableOpacity 
+                style={styles.projectLink}
+                onPress={() => handleOpenLink('https://site-grupo-two.vercel.app/')}
+              >
+                <Text style={styles.linkText}>Ver Projeto</Text>
+                <ArrowRight size={16} color={COLORS.foreground} />
+              </TouchableOpacity>
+            </View>
+
+          </View>
+        </View>
+
+        {/* HABILIDADES */}
+        <View style={styles.section}>
+          <Text style={styles.h2}>Habilidades</Text>
+
+          <Text style={styles.subheading}>Técnicas</Text>
+          <View style={styles.skillsGrid}>
+            {['JavaScript', 'React', 'Next.js', 'TypeScript', 'Node.js', 'SQL', 'CSS3', 'HTML5', 'Python', 'GitHub', 'C', 'Java'].map((skill) => (
+              <View key={skill} style={styles.skillBadge}>
+                <Text style={styles.skillText}>{skill}</Text>
+              </View>
+            ))}
+          </View>
+
+          <Text style={[styles.subheading, { marginTop: 16 }]}>Idiomas</Text>
+          <View style={styles.skillsGrid}>
+            <View style={styles.skillBadge}><Text style={styles.skillText}>Português (Nativo)</Text></View>
+            <View style={styles.skillBadge}><Text style={styles.skillText}>Inglês (Fluente)</Text></View>
+          </View>
+        </View>
+
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
+// Estilos convertidos do seu Home.module.css e globals.css
 const styles = StyleSheet.create({
-  titleContainer: {
+  safeArea: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  scrollContainer: {
+    padding: 24,
+    paddingBottom: 50,
+  },
+  header: {
+    marginBottom: 48,
+    gap: 8,
+  },
+  h1: {
+    fontSize: 32,
+    fontWeight: '700',
+    color: COLORS.foreground,
+    letterSpacing: -0.5,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: COLORS.foreground,
+    opacity: 0.7,
+    lineHeight: 24,
+  },
+  socialLinks: {
+    flexDirection: 'row',
+    gap: 24,
+    marginTop: 16,
+  },
+  socialButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 6,
+  },
+  socialText: {
+    fontSize: 14,
+    color: COLORS.foreground,
+  },
+  section: {
+    marginBottom: 48,
+  },
+  h2: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: COLORS.foreground,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.grayAlpha200,
+    paddingBottom: 8,
+    marginBottom: 16,
+  },
+  h3: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: COLORS.foreground,
+    marginBottom: 4,
+  },
+  paragraph: {
+    fontSize: 16,
+    color: COLORS.foreground,
+    opacity: 0.8,
+    lineHeight: 24,
+  },
+  job: {
+    gap: 4,
+  },
+  jobInfo: {
+    fontSize: 14,
+    color: COLORS.foreground,
+    opacity: 0.7,
+  },
+  projectGrid: {
+    gap: 16,
+  },
+  projectCard: {
+    backgroundColor: COLORS.grayAlpha100,
+    borderWidth: 1,
+    borderColor: COLORS.grayAlpha200,
+    borderRadius: 8,
+    padding: 16,
     gap: 8,
   },
-  stepContainer: {
-    gap: 8,
+  projectLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 8,
+  },
+  linkText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: COLORS.foreground,
+    opacity: 0.9,
+  },
+  subheading: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: COLORS.foreground,
     marginBottom: 8,
+    opacity: 0.8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  skillsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  skillBadge: {
+    backgroundColor: COLORS.grayAlpha200,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+  },
+  skillText: {
+    fontSize: 13,
+    fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace', // Simulando a Geist Mono
+    color: COLORS.foreground,
   },
 });
