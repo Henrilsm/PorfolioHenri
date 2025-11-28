@@ -42,7 +42,7 @@ export default function ExperienciaPage() {
             </View>
           </View>
 
-          {/* ITEM 2: FREELANCE / PROJETOS (Exemplo, pode remover se quiser) */}
+          {/* ITEM 2: FREELANCE / PROJETOS  */}
           <View style={styles.timelineItem}>
             <View style={styles.timelineLeft}>
               <View
@@ -53,7 +53,6 @@ export default function ExperienciaPage() {
               >
                 <Briefcase size={20} color="#999" />
               </View>
-              {/* Sem linha abaixo do último item */}
             </View>
 
             <View style={styles.timelineRight}>
@@ -62,7 +61,7 @@ export default function ExperienciaPage() {
               <Text style={styles.institution}>Projetos Autônomos</Text>
               <Text style={styles.description}>
                 Desenvolvimento de aplicações web e mobile, como o "Escalação
-                FC" e portfólio pessoal.
+                FC", "Agape Essence" e portfólio pessoal.
               </Text>
             </View>
           </View>
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#007AFF", // Destaque azul para educação
+    backgroundColor: "#007AFF",
     alignItems: "center",
     justifyContent: "center",
     zIndex: 2,

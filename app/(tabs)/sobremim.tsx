@@ -1,11 +1,11 @@
 import React from "react";
 import {
-  Platform,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   View,
+  ScrollView,
+  StatusBar,
+  Platform,
 } from "react-native";
 
 const COLORS = {
@@ -14,14 +14,15 @@ const COLORS = {
   cardBg: "rgba(255, 255, 255, 0.06)",
   borderColor: "rgba(255, 255, 255, 0.1)",
   muted: "rgba(237, 237, 237, 0.6)",
+  accent: "#007AFF",
 };
 
 const TECH_SKILLS = [
   "JavaScript",
   "React",
+  "Next.js",
   "React Native",
   "Expo",
-  "Next.js",
   "TypeScript",
   "Node.js",
   "SQL",
@@ -38,12 +39,21 @@ export default function SobrePage() {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.background} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.pageTitle}>Sobre Mim</Text>
+        <View style={styles.headerProfile}>
+          <View style={styles.initialsContainer}>
+            <Text style={styles.initialsText}>HM</Text>
+          </View>
+
+          <Text style={styles.pageTitle}>Henri Leonardo</Text>
+          <Text style={styles.role}>Desenvolvedor Back-end</Text>
+        </View>
+        {/* -------------------------------- */}
 
         {/* TEXTO DE APRESENTAÇÃO */}
         <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Sobre Mim</Text>
           <Text style={styles.paragraph}>
-            Olá, meu nome é Henri Moraes, um desenvolvedor de software backend com foco na construção de
+            Sou um desenvolvedor de software backend com foco na construção de
             sistemas robustos e escaláveis. Tenho experiência com o ecossistema
             Node.js, Python e Java, incluindo tecnologias como Express e bancos
             de dados como SQL.
@@ -85,21 +95,37 @@ export default function SobrePage() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
-  scrollContent: { padding: 24, paddingTop: 60, paddingBottom: 40 },
-  pageTitle: {
-    fontSize: 32,
+  scrollContent: { padding: 24, paddingTop: 40, paddingBottom: 40 },
+  headerProfile: { alignItems: "center", marginBottom: 40 },
+  initialsContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: "rgba(255,255,255,0.08)",
+    borderWidth: 2,
+    borderColor: COLORS.borderColor,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 16,
+  },
+  initialsText: {
+    fontSize: 36,
     fontWeight: "bold",
     color: COLORS.foreground,
-    marginBottom: 24,
+    letterSpacing: 1,
   },
-  section: { marginBottom: 40 },
+
+  pageTitle: { fontSize: 28, fontWeight: "bold", color: COLORS.foreground },
+  role: { fontSize: 16, color: COLORS.muted, marginTop: 4 },
+
+  section: { marginBottom: 32 },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "600",
     color: COLORS.foreground,
     marginBottom: 16,
-    borderLeftWidth: 2,
-    borderLeftColor: "#fff",
+    borderLeftWidth: 3,
+    borderLeftColor: COLORS.accent,
     paddingLeft: 12,
   },
   paragraph: { fontSize: 16, color: COLORS.muted, lineHeight: 24 },

@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 
-  // Grid Layout
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -147,7 +146,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", 
   },
 
-  // Estilo unificado dos Cards
   card: {
     width: "48%", 
     backgroundColor: COLORS.cardBg,
