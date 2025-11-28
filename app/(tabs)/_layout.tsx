@@ -1,12 +1,13 @@
 import { Tabs } from "expo-router";
 import {
-  Home,
-  User,
-  GraduationCap,
   FolderGit2,
-  Info,
   Gamepad2,
+  GraduationCap,
+  Home,
+  Info,
+  User,
 } from "lucide-react-native";
+import React from "react";
 import { Platform } from "react-native";
 
 const COLORS = {
@@ -24,8 +25,8 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: COLORS.tabBarBg,
           borderTopColor: "#333",
-          height: Platform.OS === "ios" ? 88 : 65, 
-          paddingBottom: Platform.OS === "ios" ? 28 : 8,
+          height: Platform.OS === "ios" ? 88 : 80,
+          paddingBottom: Platform.OS === "ios" ? 28 : 20,
           paddingTop: 8,
         },
         tabBarActiveTintColor: COLORS.active,
@@ -36,7 +37,7 @@ export default function TabLayout() {
         },
       }}
     >
-      {/* 1. HOME */}
+      {/* 1. INÍCIO */}
       <Tabs.Screen
         name="index"
         options={{
@@ -54,7 +55,7 @@ export default function TabLayout() {
         }}
       />
 
-      {/* 3. FORMAÇÃO (experiencia.tsx) */}
+      {/* 3. FORMAÇÃO */}
       <Tabs.Screen
         name="experiencia"
         options={{
@@ -72,7 +73,7 @@ export default function TabLayout() {
         }}
       />
 
-      {/* 5. JOGO (forca.tsx) */}
+      {/* 5. JOGO DA FORCA */}
       <Tabs.Screen
         name="forca"
         options={{
@@ -81,7 +82,7 @@ export default function TabLayout() {
         }}
       />
 
-      {/* 6. APP INFO (sobre.tsx) */}
+      {/* 6. APP INFO */}
       <Tabs.Screen
         name="sobre"
         options={{
