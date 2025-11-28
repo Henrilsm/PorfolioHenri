@@ -1,33 +1,92 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import {
+  Home,
+  User,
+  GraduationCap,
+  FolderGit2,
+  Info,
+  Gamepad2,
+} from "lucide-react-native";
+import { Platform } from "react-native";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+const COLORS = {
+  background: "#0a0a0a",
+  active: "#ededed",
+  inactive: "#666666",
+  tabBarBg: "#121212",
+};
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        tabBarStyle: {
+          backgroundColor: COLORS.tabBarBg,
+          borderTopColor: "#333",
+          height: Platform.OS === "ios" ? 88 : 65, 
+          paddingBottom: Platform.OS === "ios" ? 28 : 8,
+          paddingTop: 8,
+        },
+        tabBarActiveTintColor: COLORS.active,
+        tabBarInactiveTintColor: COLORS.inactive,
+        tabBarLabelStyle: {
+          fontSize: 10,
+          fontWeight: "500",
+        },
+      }}
+    >
+      {/* 1. HOME */}
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Início",
+          tabBarIcon: ({ color }) => <Home size={22} color={color} />,
         }}
       />
+
+      {/* 2. PERFIL (sobremim.tsx) */}
       <Tabs.Screen
-        name="explore"
+        name="sobremim"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Perfil",
+          tabBarIcon: ({ color }) => <User size={22} color={color} />,
+        }}
+      />
+
+      {/* 3. FORMAÇÃO (experiencia.tsx) */}
+      <Tabs.Screen
+        name="experiencia"
+        options={{
+          title: "Formação",
+          tabBarIcon: ({ color }) => <GraduationCap size={22} color={color} />,
+        }}
+      />
+
+      {/* 4. PROJETOS */}
+      <Tabs.Screen
+        name="projetos"
+        options={{
+          title: "Projetos",
+          tabBarIcon: ({ color }) => <FolderGit2 size={22} color={color} />,
+        }}
+      />
+
+      {/* 5. JOGO (forca.tsx) */}
+      <Tabs.Screen
+        name="forca"
+        options={{
+          title: "Jogar",
+          tabBarIcon: ({ color }) => <Gamepad2 size={22} color={color} />,
+        }}
+      />
+
+      {/* 6. APP INFO (sobre.tsx) */}
+      <Tabs.Screen
+        name="sobre"
+        options={{
+          title: "App Info",
+          tabBarIcon: ({ color }) => <Info size={22} color={color} />,
         }}
       />
     </Tabs>

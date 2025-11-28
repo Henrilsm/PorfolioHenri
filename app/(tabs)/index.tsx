@@ -1,162 +1,96 @@
-import { Link } from "expo-router";
-import { ArrowRight, Github, Mail } from "lucide-react-native";
 import React from "react";
 import {
-  Linking,
-  Platform,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
+  ScrollView,
+  TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
 } from "react-native";
+import { Link, useRouter } from "expo-router";
+import {
+  User,
+  GraduationCap,
+  FolderGit2,
+  Gamepad2,
+  ArrowRight,
+} from "lucide-react-native";
 
 const COLORS = {
   background: "#0a0a0a",
   foreground: "#ededed",
-  cardBackground: "rgba(255, 255, 255, 0.06)",
-  borderColor: "rgba(255, 255, 255, 0.145)",
-  muted: "rgba(237, 237, 237, 0.7)",
-};
-
-const handleOpenLink = (url: string) => {
-  Linking.openURL(url);
+  cardBg: "rgba(255, 255, 255, 0.06)",
+  borderColor: "rgba(255, 255, 255, 0.1)",
 };
 
 export default function HomePage() {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      {/* StatusBar ajustada para texto claro em fundo escuro */}
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.background} />
-
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* HEADER */}
+      <ScrollView contentContainerStyle={styles.content}>
+        {/* Header Simples */}
         <View style={styles.header}>
-          <Text style={styles.h1}>Henri Leonardo</Text>
-          <Text style={styles.subtitle}>
-            Desenvolvedor Back-end | Apaixonado por tecnologia e inovação
-          </Text>
-
-          <View style={styles.socialLinks}>
-            <TouchableOpacity
-              style={styles.socialButton}
-              onPress={() => handleOpenLink("https://github.com/Henrilsm")}
-            >
-              <Github size={20} color={COLORS.foreground} />
-              <Text style={styles.socialText}>GitHub</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.socialButton}
-              onPress={() => handleOpenLink("mailto:henrilsm@gmail.com")}
-            >
-              <Mail size={20} color={COLORS.foreground} />
-              <Text style={styles.socialText}>Email</Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.greeting}>Olá, sou</Text>
+          <Text style={styles.name}>Henri Leonardo</Text>
+          <Text style={styles.role}>Desenvolvedor Back-end</Text>
         </View>
 
-        {/* SOBRE MIM */}
-        <View style={styles.section}>
-          <Text style={styles.h2}>Sobre Mim</Text>
-          <Text style={styles.paragraph}>
-            Sou um desenvolvedor de software backend com foco na construção de
-            sistemas robustos e escaláveis. Tenho experiência com o ecossistema
-            Node.js, Python e Java, incluindo tecnologias como Express e bancos
-            de dados como SQL. Atualmente, estou buscando novas oportunidades
-            para aplicar minhas habilidades e contribuir para projetos
-            inovadores.
-          </Text>
-        </View>
+        <Text style={styles.sectionTitle}>Navegação Rápida</Text>
 
-        {/* EDUCAÇÃO */}
-        <View style={styles.section}>
-          <Text style={styles.h2}>Educação</Text>
-          <View style={styles.job}>
-            <Text style={styles.h3}>Ciência da Computação</Text>
-            <Text style={styles.jobInfo}>
-              Universidade Católica de Pernambuco (UNICAP) | Cursando atualmente
-              no 5º semestre.
-            </Text>
-          </View>
-        </View>
-
-        {/* PROJETOS */}
-        <View style={styles.section}>
-          <Text style={styles.h2}>Projetos</Text>
-          <View style={styles.projectGrid}>
-            {/* Card 1 - Jogo da Forca */}
-            <View style={styles.projectCard}>
-              <Text style={styles.h3}>Jogo da Forca</Text>
-              <Text style={styles.paragraph}>
-                Clássico jogo da forca implementado originalmente em Next.js e
-                agora portado para Mobile.
-              </Text>
-              <Link href="/forca" asChild>
-                <TouchableOpacity style={styles.projectLink}>
-                  <Text style={styles.linkText}>Ver Projeto</Text>
-                  <ArrowRight size={16} color={COLORS.foreground} />
-                </TouchableOpacity>
-              </Link>
-            </View>
-
-            {/* Card 2 - Escalação FC */}
-            <View style={styles.projectCard}>
-              <Text style={styles.h3}>Escalação FC</Text>
-              <Text style={styles.paragraph}>
-                Site web desenvolvido para que fãs de futebol possam dar uma de
-                treinador e esboçar uma escalação.
-              </Text>
-              <TouchableOpacity
-                style={styles.projectLink}
-                onPress={() =>
-                  handleOpenLink("https://site-grupo-two.vercel.app/")
-                }
-              >
-                <Text style={styles.linkText}>Ver Projeto</Text>
-                <ArrowRight size={16} color={COLORS.foreground} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-        {/* HABILIDADES */}
-        <View style={styles.section}>
-          <Text style={styles.h2}>Habilidades</Text>
-
-          <Text style={styles.subheading}>Técnicas</Text>
-          <View style={styles.skillsGrid}>
-            {[
-              "JavaScript",
-              "React",
-              "Next.js",
-              "TypeScript",
-              "Node.js",
-              "SQL",
-              "CSS3",
-              "HTML5",
-              "Python",
-              "GitHub",
-              "C",
-              "Java",
-            ].map((skill) => (
-              <View key={skill} style={styles.skillBadge}>
-                <Text style={styles.skillText}>{skill}</Text>
+        <View style={styles.grid}>
+          {/* Card Sobre */}
+          <Link href="/sobremim" asChild>
+            <TouchableOpacity style={styles.card}>
+              <View style={styles.iconBox}>
+                <User color="#fff" size={24} />
               </View>
-            ))}
-          </View>
+              <Text style={styles.cardTitle}>Sobre Mim</Text>
+              <Text style={styles.cardDesc}>Conheça minha trajetória.</Text>
+            </TouchableOpacity>
+          </Link>
 
-          <Text style={[styles.subheading, { marginTop: 16 }]}>Idiomas</Text>
-          <View style={styles.skillsGrid}>
-            <View style={styles.skillBadge}>
-              <Text style={styles.skillText}>Português (Nativo)</Text>
-            </View>
-            <View style={styles.skillBadge}>
-              <Text style={styles.skillText}>Inglês (Fluente)</Text>
-            </View>
-          </View>
+          {/* Card Formação */}
+          <Link href="/experiencia" asChild>
+            <TouchableOpacity style={styles.card}>
+              <View style={styles.iconBox}>
+                <GraduationCap color="#fff" size={24} />
+              </View>
+              <Text style={styles.cardTitle}>Formação</Text>
+              <Text style={styles.cardDesc}>Ciência da Computação.</Text>
+            </TouchableOpacity>
+          </Link>
+
+          {/* Card Projetos */}
+          <Link href="/projetos" asChild>
+            <TouchableOpacity style={styles.card}>
+              <View style={styles.iconBox}>
+                <FolderGit2 color="#fff" size={24} />
+              </View>
+              <Text style={styles.cardTitle}>Projetos</Text>
+              <Text style={styles.cardDesc}>Web e Mobile.</Text>
+            </TouchableOpacity>
+          </Link>
+
+          {/* Card Especial para o Jogo */}
+          <Link href="/forca" asChild>
+            <TouchableOpacity style={[styles.card, styles.cardHighlight]}>
+              <View style={styles.iconBox}>
+                <Gamepad2 color="#000" size={24} />
+              </View>
+              <Text style={[styles.cardTitle, { color: "#000" }]}>
+                Jogar Forca
+              </Text>
+              <Text style={[styles.cardDesc, { color: "#333" }]}>
+                Teste agora!
+              </Text>
+              <ArrowRight
+                style={{ position: "absolute", right: 16, bottom: 16 }}
+                color="#000"
+                size={20}
+              />
+            </TouchableOpacity>
+          </Link>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -164,117 +98,36 @@ export default function HomePage() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
-  scrollContainer: {
-    padding: 24,
-    paddingBottom: 50,
-  },
-  header: {
-    marginBottom: 48,
-    gap: 8,
-  },
-  h1: {
-    fontSize: 32,
-    fontWeight: "700",
+  container: { flex: 1, backgroundColor: COLORS.background },
+  content: { padding: 24 },
+  header: { marginBottom: 40, marginTop: 20 },
+  greeting: { fontSize: 18, color: COLORS.foreground, opacity: 0.7 },
+  name: {
+    fontSize: 36,
+    fontWeight: "bold",
     color: COLORS.foreground,
-    letterSpacing: -0.5,
+    marginVertical: 4,
   },
-  subtitle: {
-    fontSize: 16,
-    color: COLORS.muted,
-    lineHeight: 24,
-  },
-  socialLinks: {
-    flexDirection: "row",
-    gap: 24,
-    marginTop: 16,
-  },
-  socialButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-  },
-  socialText: {
-    fontSize: 14,
+  role: { fontSize: 16, color: "#007AFF", fontWeight: "600" },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
     color: COLORS.foreground,
-  },
-  section: {
-    marginBottom: 48,
-  },
-  h2: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: COLORS.foreground,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.borderColor,
-    paddingBottom: 8,
     marginBottom: 16,
   },
-  h3: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: COLORS.foreground,
-    marginBottom: 4,
-  },
-  paragraph: {
-    fontSize: 16,
-    color: COLORS.muted,
-    lineHeight: 24,
-  },
-  job: {
-    gap: 4,
-  },
-  jobInfo: {
-    fontSize: 14,
-    color: COLORS.muted,
-  },
-  projectGrid: {
-    gap: 16,
-  },
-  projectCard: {
-    backgroundColor: COLORS.cardBackground,
+  grid: { gap: 16 },
+  card: {
+    backgroundColor: COLORS.cardBg,
+    borderRadius: 16,
+    padding: 20,
     borderWidth: 1,
     borderColor: COLORS.borderColor,
-    borderRadius: 8,
-    padding: 16,
+    flexDirection: "column",
+    alignItems: "flex-start",
     gap: 8,
   },
-  projectLink: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginTop: 8,
-  },
-  linkText: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: COLORS.foreground,
-  },
-  subheading: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: COLORS.foreground,
-    marginBottom: 8,
-    opacity: 0.8,
-  },
-  skillsGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-  },
-  skillBadge: {
-    backgroundColor: COLORS.borderColor,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: 4,
-  },
-  skillText: {
-    fontSize: 13,
-    fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
-    color: COLORS.foreground,
-  },
+  cardHighlight: { backgroundColor: "#fff" }, // Destaque para o jogo (branco com texto preto)
+  iconBox: { marginBottom: 8 },
+  cardTitle: { fontSize: 18, fontWeight: "bold", color: COLORS.foreground },
+  cardDesc: { fontSize: 14, color: COLORS.foreground, opacity: 0.6 },
 });
