@@ -7,88 +7,104 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
+  Platform,
 } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import {
   User,
   GraduationCap,
   FolderGit2,
   Gamepad2,
-  ArrowRight,
+  Code2,
 } from "lucide-react-native";
 
 const COLORS = {
   background: "#0a0a0a",
   foreground: "#ededed",
-  cardBg: "rgba(255, 255, 255, 0.06)",
-  borderColor: "rgba(255, 255, 255, 0.1)",
+  cardBg: "rgba(255, 255, 255, 0.05)",
+  cardBorder: "rgba(255, 255, 255, 0.1)",
+  accent: "#007AFF",
 };
 
 export default function HomePage() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.background} />
+
       <ScrollView contentContainerStyle={styles.content}>
-        {/* Header Simples */}
+        {/* CABEÇALHO */}
         <View style={styles.header}>
-          <Text style={styles.greeting}>Olá, sou</Text>
+          <Text style={styles.greeting}>Olá, eu sou</Text>
           <Text style={styles.name}>Henri Leonardo</Text>
-          <Text style={styles.role}>Desenvolvedor Back-end</Text>
+          <Text style={styles.role}>Este é meu portifólio</Text>
         </View>
 
-        <Text style={styles.sectionTitle}>Navegação Rápida</Text>
+        <Text style={styles.sectionTitle}>Menu Principal</Text>
 
+        {/* GRADE DE CARDS (Todos iguais) */}
         <View style={styles.grid}>
-          {/* Card Sobre */}
+          {/* 1. Sobre Mim */}
           <Link href="/sobremim" asChild>
             <TouchableOpacity style={styles.card}>
-              <View style={styles.iconBox}>
-                <User color="#fff" size={24} />
-              </View>
+              <User
+                size={28}
+                color={COLORS.foreground}
+                style={styles.cardIcon}
+              />
               <Text style={styles.cardTitle}>Sobre Mim</Text>
-              <Text style={styles.cardDesc}>Conheça minha trajetória.</Text>
+              <Text style={styles.cardDesc}>Perfil e bio.</Text>
             </TouchableOpacity>
           </Link>
 
-          {/* Card Formação */}
+          {/* 2. Formação */}
           <Link href="/experiencia" asChild>
             <TouchableOpacity style={styles.card}>
-              <View style={styles.iconBox}>
-                <GraduationCap color="#fff" size={24} />
-              </View>
+              <GraduationCap
+                size={28}
+                color={COLORS.foreground}
+                style={styles.cardIcon}
+              />
               <Text style={styles.cardTitle}>Formação</Text>
-              <Text style={styles.cardDesc}>Ciência da Computação.</Text>
+              <Text style={styles.cardDesc}>Minha jornada.</Text>
             </TouchableOpacity>
           </Link>
 
-          {/* Card Projetos */}
+          {/* 3. Projetos */}
           <Link href="/projetos" asChild>
             <TouchableOpacity style={styles.card}>
-              <View style={styles.iconBox}>
-                <FolderGit2 color="#fff" size={24} />
-              </View>
+              <FolderGit2
+                size={28}
+                color={COLORS.foreground}
+                style={styles.cardIcon}
+              />
               <Text style={styles.cardTitle}>Projetos</Text>
-              <Text style={styles.cardDesc}>Web e Mobile.</Text>
+              <Text style={styles.cardDesc}>Meus trabalhos.</Text>
             </TouchableOpacity>
           </Link>
 
-          {/* Card Especial para o Jogo */}
+          {/* 4. Jogo da Forca (Novo Card Padrão) */}
           <Link href="/forca" asChild>
-            <TouchableOpacity style={[styles.card, styles.cardHighlight]}>
-              <View style={styles.iconBox}>
-                <Gamepad2 color="#000" size={24} />
-              </View>
-              <Text style={[styles.cardTitle, { color: "#000" }]}>
-                Jogar Forca
-              </Text>
-              <Text style={[styles.cardDesc, { color: "#333" }]}>
-                Teste agora!
-              </Text>
-              <ArrowRight
-                style={{ position: "absolute", right: 16, bottom: 16 }}
-                color="#000"
-                size={20}
+            <TouchableOpacity style={styles.card}>
+              <Gamepad2
+                size={28}
+                color={COLORS.foreground}
+                style={styles.cardIcon}
               />
+              <Text style={styles.cardTitle}>Jogo da Forca</Text>
+              <Text style={styles.cardDesc}>Jogue agora.</Text>
+            </TouchableOpacity>
+          </Link>
+
+          {/* 5. App Info */}
+          <Link href="/sobre" asChild>
+            <TouchableOpacity style={styles.card}>
+              <Code2
+                size={28}
+                color={COLORS.foreground}
+                style={styles.cardIcon}
+              />
+              <Text style={styles.cardTitle}>App Info</Text>
+              <Text style={styles.cardDesc}>Tecnologias.</Text>
             </TouchableOpacity>
           </Link>
         </View>
@@ -98,36 +114,57 @@ export default function HomePage() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
-  content: { padding: 24 },
-  header: { marginBottom: 40, marginTop: 20 },
-  greeting: { fontSize: 18, color: COLORS.foreground, opacity: 0.7 },
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  content: { padding: 24, paddingBottom: 40 },
+
+  // Header
+  header: { marginBottom: 32, marginTop: 10 },
+  greeting: { fontSize: 16, color: COLORS.foreground, opacity: 0.7 },
   name: {
-    fontSize: 36,
+    fontSize: 32,
     fontWeight: "bold",
     color: COLORS.foreground,
-    marginVertical: 4,
+    marginTop: 4,
   },
-  role: { fontSize: 16, color: "#007AFF", fontWeight: "600" },
+  role: { fontSize: 16, color: COLORS.accent, fontWeight: "600", marginTop: 4 },
+
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     color: COLORS.foreground,
     marginBottom: 16,
   },
-  grid: { gap: 16 },
-  card: {
-    backgroundColor: COLORS.cardBg,
-    borderRadius: 16,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: COLORS.borderColor,
-    flexDirection: "column",
-    alignItems: "flex-start",
-    gap: 8,
+
+  // Grid Layout
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 12, 
+    justifyContent: "space-between", 
   },
-  cardHighlight: { backgroundColor: "#fff" }, // Destaque para o jogo (branco com texto preto)
-  iconBox: { marginBottom: 8 },
-  cardTitle: { fontSize: 18, fontWeight: "bold", color: COLORS.foreground },
-  cardDesc: { fontSize: 14, color: COLORS.foreground, opacity: 0.6 },
+
+  // Estilo unificado dos Cards
+  card: {
+    width: "48%", 
+    backgroundColor: COLORS.cardBg,
+    padding: 20,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: COLORS.cardBorder,
+    minHeight: 130, 
+    justifyContent: "center",
+    marginBottom: 4, 
+  },
+  cardIcon: { marginBottom: 16 },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: COLORS.foreground,
+    marginBottom: 4,
+  },
+  cardDesc: { fontSize: 13, color: COLORS.foreground, opacity: 0.5 },
 });
