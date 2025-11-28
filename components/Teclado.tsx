@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-// Define quais dados esse componente OBRIGATORIAMENTE precisa receber
 interface TecladoProps {
   onGuess: (letra: string) => void;
   guessedLetters: string[];
@@ -31,7 +30,6 @@ export default function Teclado({ onGuess, guessedLetters }: TecladoProps) {
   );
 }
 
-// Estilos específicos do teclado (pode manter aqui ou no arquivo global)
 const styles = StyleSheet.create({
   teclado: {
     flexDirection: "row",

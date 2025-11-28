@@ -5,7 +5,7 @@ import { Link } from "expo-router";
 import { Svg, Line, Circle } from "react-native-svg";
 import ConfettiCannon from "react-native-confetti-cannon";
 
-// Imports locais
+
 import { palavras } from "../lib/palavras";
 import Teclado from "./Teclado";
 
@@ -17,7 +17,7 @@ const COLORS = {
   grayAlpha100: "rgba(0, 0, 0, 0.05)",
 };
 
-// Tipagem para as props do Boneco
+
 interface BonecoForcaProps {
   erros: number;
 }
@@ -25,7 +25,7 @@ interface BonecoForcaProps {
 const BonecoForca = ({ erros }: BonecoForcaProps) => {
   const strokeColor = COLORS.foreground;
 
-  // Props comuns para as partes do corpo para evitar repetição
+
   const commonProps = {
     stroke: strokeColor,
     strokeWidth: "3",
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
-    paddingTop: 60, // Espaço extra para o botão voltar não ficar colado no topo
+    paddingTop: 60,
   },
   title: {
     fontSize: 32,
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
   },
   botaoVoltar: {
     position: "absolute",
-    top: 50, // Ajuste conforme a safe area do iPhone
+    top: 50, 
     left: 20,
     zIndex: 10,
     flexDirection: "row",
